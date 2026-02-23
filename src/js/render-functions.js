@@ -55,10 +55,10 @@ export function hideLoader() {
   loader.classList.remove('loader');
 }
 
-export function hideLoadMoreButton() {
-  loadMore.classList.remove('js-loadMore');
+export function showLoadMoreButton() {
+  loadMore.classList.add('loadMore');
 }
 
-export function showLoadMoreButton() {
-  loadMore.classList.add('js-loadMore');
+export function hideLoadMoreButton() {
+  loadMore.classList.remove('loadMore');
 }

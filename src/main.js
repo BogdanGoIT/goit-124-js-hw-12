@@ -38,7 +38,6 @@ async function handleSubmit(evt) {
   }
 
   clearGallery();
-  showLoadMoreButton();
   showLoader();
 
   try {
@@ -46,10 +45,10 @@ async function handleSubmit(evt) {
 
     if (data.hits.length > 0) {
       createGallery(data.hits);
-      hideLoadMoreButton();
+      showLoadMoreButton();
       const totalPages = Math.ceil(data.totalHits / 15);
       if (page >= totalPages) {
-        showLoadMoreButton();
+        hideLoadMoreButton();
         return iziToast.info({
           position: 'topRight',
           message: "We're sorry, but you've reached the end of search results.",
@@ -70,6 +69,7 @@ async function handleSubmit(evt) {
     });
   } finally {
     hideLoader();
+
     evt.target.reset();
   }
 }
@@ -86,7 +86,7 @@ async function onLoadMore(evt) {
     const totalPages = Math.ceil(res.totalHits / 15);
 
     if (page >= totalPages) {
-      showLoadMoreButton();
+      hideLoadMoreButton();
       return iziToast.info({
         position: 'topRight',
         message: "We're sorry, but you've reached the end of search results.",

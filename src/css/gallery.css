@@ -75,7 +75,12 @@
   background-color: #6c8cff;
 }
 
+.js-loadMore {
+  display: none;
+}
+
 .loadMore {
+  display: block;
   text-align: center;
   margin: 0 auto;
   border: 0px solid transparent;
@@ -92,8 +97,4 @@
   line-height: 150%;
   letter-spacing: 0.04em;
   color: #fff;
-}
-
-.js-loadMore {
-  display: none;
 }
