@@ -88,14 +88,6 @@ async function onLoadMore(evt) {
     showLoadMoreButton();
     const totalPages = Math.ceil(res.totalHits / 15);
 
-    if (page >= totalPages) {
-      hideLoadMoreButton();
-      return iziToast.info({
-        position: 'topRight',
-        message: "We're sorry, but you've reached the end of search results.",
-      });
-    }
-
     const card = document.querySelector('.gallery-item');
     const cardHeight = card.getBoundingClientRect().height * 2;
 
@@ -104,6 +96,14 @@ async function onLoadMore(evt) {
       left: 0,
       behavior: 'smooth',
     });
+
+    if (page >= totalPages) {
+      hideLoadMoreButton();
+      return iziToast.info({
+        position: 'topRight',
+        message: "We're sorry, but you've reached the end of search results.",
+      });
+    }
   } catch (error) {
     iziToast.error({
       message: error.message,
