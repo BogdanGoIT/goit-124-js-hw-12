@@ -41,8 +41,9 @@ async function handleSubmit(evt) {
   showLoader();
   hideLoadMoreButton();
 
+  page = 1;
   try {
-    const data = await getImagesByQuery(searchValue, (page = 1));
+    const data = await getImagesByQuery(searchValue, page);
 
     if (data.hits.length > 0) {
       createGallery(data.hits);
@@ -89,6 +90,9 @@ async function onLoadMore(evt) {
     const totalPages = Math.ceil(res.totalHits / 15);
 
     const card = document.querySelector('.gallery-item');
+    if (!card) {
+      return;
+    }
     const cardHeight = card.getBoundingClientRect().height * 2;
 
     window.scrollBy({
