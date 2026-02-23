@@ -39,6 +39,7 @@ async function handleSubmit(evt) {
 
   clearGallery();
   showLoader();
+  hideLoadMoreButton();
 
   try {
     const data = await getImagesByQuery(searchValue, (page = 1));
@@ -77,12 +78,14 @@ async function handleSubmit(evt) {
 async function onLoadMore(evt) {
   page++;
   loadMore.disabled = true;
+  showLoader();
+  hideLoadMoreButton();
 
   try {
     const res = await getImagesByQuery(searchValue, page);
 
     createGallery(res.hits);
-
+    showLoadMoreButton();
     const totalPages = Math.ceil(res.totalHits / 15);
 
     if (page >= totalPages) {
@@ -102,8 +105,12 @@ async function onLoadMore(evt) {
       behavior: 'smooth',
     });
   } catch (error) {
-    console.log(error);
+    iziToast.error({
+      message: error.message,
+      position: 'topRight',
+    });
   } finally {
     loadMore.disabled = false;
+    hideLoader();
   }
 }
